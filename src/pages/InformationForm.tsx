@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import FormData from "../types/FormData";
+import { Information } from "../types/Campaign";
 
 function InformationForm() {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<Information>({
     name: "",
-    description: "",
+    describe: "",
   });
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [describe, setDescribe] = useState("");
 
   useEffect(() => {
-    if (name && description) {
+    if (name && describe) {
       setFormData({
         name: name,
-        description: description,
+        describe: describe,
       });
     }
-  }, [name, description]);
+  }, [name, describe]);
   console.log(formData);
 
   return (
@@ -43,8 +43,8 @@ function InformationForm() {
           variant="outlined"
           margin="dense"
           fullWidth
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={describe}
+          onChange={(e) => setDescribe(e.target.value)}
         />
       </form>
     </div>
