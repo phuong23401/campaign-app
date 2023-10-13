@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FormControl } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { Information } from "../types/Campaign";
@@ -22,17 +23,16 @@ function InformationForm() {
 
   return (
     <div>
-      <Typography variant="h5" sx={{ marginBottom: 2 }}>
+      <Typography variant="h5" sx={{ marginBottom: 2 }} textAlign="center">
         Enter Campaign Information
       </Typography>
-      <form>
+      <FormControl fullWidth>
         <TextField
           id="name"
           label="Campaign name"
           variant="outlined"
           margin="dense"
           required
-          fullWidth
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -41,11 +41,10 @@ function InformationForm() {
           label="Campaign description"
           variant="outlined"
           margin="dense"
-          fullWidth
           value={describe}
           onChange={(e) => setDescribe(e.target.value)}
         />
-      </form>
+      </FormControl>
     </div>
   );
 }
