@@ -1,25 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Container from "@mui/material/Container";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import CustomTabPanel from "./components/CustomTabPanel";
+import InformationForm from "./pages/InformationForm";
 
 function App() {
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setCurrentTab(newValue);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Container maxWidth="lg">
+      <Typography variant="h3" sx={{ margin: 5 }} textAlign={"center"}>
+        CREATE CAMPAIGN APP
+      </Typography>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={currentTab}
+          onChange={handleChange}
+          aria-label="basic tabs example"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Tab label="Information" />
+          <Tab label="Sub Campaign" />
+        </Tabs>
+      </Box>
+      <CustomTabPanel value={currentTab} index={0}>
+        <InformationForm />
+      </CustomTabPanel>
+      <CustomTabPanel value={currentTab} index={1}>
+        Item Two
+      </CustomTabPanel>
+    </Container>
   );
 }
 
