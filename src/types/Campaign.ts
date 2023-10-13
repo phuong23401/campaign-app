@@ -19,4 +19,4 @@ interface Campaign {
   subCampaigns: SubCampaign[];
 }
 
-export type { Campaign, Information, SubCampaign };
+export type { Campaign, Information, SubCampaign, Advertisement };

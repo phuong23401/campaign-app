@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { Information } from "../types/Campaign";
@@ -19,7 +19,6 @@ function InformationForm() {
       });
     }
   }, [name, describe]);
-  console.log(formData);
 
   return (
     <div>
