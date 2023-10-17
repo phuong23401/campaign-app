@@ -53,7 +53,9 @@ function AdvertisementForm(props: AdvertisementProps) {
 
     const newList = [...advertisementList, newAdvertisement];
 
+    onChange(newList);
     setAdvertisementList(newList);
+
     setCheckedAll([...checkedAll, false]);
     setName(newAdvertisement.name);
     setQuantity(newAdvertisement.quantity);
@@ -69,6 +71,7 @@ function AdvertisementForm(props: AdvertisementProps) {
 
     setName(newName);
     setAdvertisementList(updatedAdvertisementList);
+    onChange(updatedAdvertisementList);
   };
 
   const onEditQuantity = (id: number, newQuantity: number) => {
@@ -81,18 +84,23 @@ function AdvertisementForm(props: AdvertisementProps) {
 
     setQuantity(newQuantity);
     setAdvertisementList(updatedAdvertisementList);
+    onChange(updatedAdvertisementList);
   };
 
   const onRemove = (id: number) => {
     const newAdsList = advertisementList.filter(
       (advertisement) => advertisement.id !== id
     );
+
     setAdvertisementList(newAdsList);
+    onChange(newAdsList);
   };
 
   const onRemoveAll = () => {
     const newAdsList = advertisementList.splice(0, advertisementList.length);
+
     setAdvertisementList(newAdsList);
+    onChange(newAdsList);
   };
 
   const handleCheckboxChange = (index: number) => {
@@ -106,10 +114,6 @@ function AdvertisementForm(props: AdvertisementProps) {
     const newCheckedAll = advertisementList.map(() => !allChecked);
     setCheckedAll(newCheckedAll);
   };
-
-  useEffect(() => {
-    onChange(advertisementList);
-  }, [advertisementList, onChange]);
 
   return (
     <div>
