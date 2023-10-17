@@ -47,8 +47,10 @@ function SubCampaignForm(props: SubCampaignFormProps) {
       status: true,
       ads: [{ id: 1, name: "Advertisement 1", quantity: 0 }],
     };
+    const newList = [...subCampaignList, newSubCampaign];
 
-    setSubCampainList([...subCampaignList, newSubCampaign]);
+    onChange(newList);
+    setSubCampainList(newList);
     setCurrentCampaign(newSubCampaign);
 
     setName(newSubCampaign.name);
@@ -76,6 +78,7 @@ function SubCampaignForm(props: SubCampaignFormProps) {
 
       setName(newName);
       setSubCampainList(updatedSubCampaignList);
+      onChange(updatedSubCampaignList);
     }
   };
 
@@ -90,21 +93,27 @@ function SubCampaignForm(props: SubCampaignFormProps) {
 
       setStatus(newStatus);
       setSubCampainList(updatedSubCampaignList);
+      onChange(updatedSubCampaignList);
     }
   };
 
   const handleAdvertisementChange = (
     advertisementDataList: Advertisement[]
   ) => {
-    setAds((prevData) => ({
-      ...prevData,
-      advertisementDataList,
-    }));
-  };
+    setAds(advertisementDataList);
 
-  useEffect(() => {
-    onChange(subCampaignList);
-  }, [subCampaignList, onChange]);
+    const updatedSubCampaignList = subCampaignList.map((campaign) => {
+      if (campaign.id === currentCampaign.id) {
+        return {
+          ...campaign,
+          ads: advertisementDataList,
+        };
+      }
+      return campaign;
+    });
+
+    onChange(updatedSubCampaignList);
+  };
 
   return (
     <div>
