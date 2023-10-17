@@ -4,22 +4,18 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { Information } from "../types/Campaign";
 
-function InformationForm() {
-  const [formData, setFormData] = useState<Information>({
-    name: "",
-    describe: "",
-  });
+interface InformationProps {
+  onChange: (informationData: Information) => void;
+}
+
+function InformationForm(props: InformationProps) {
+  const { onChange } = props;
   const [name, setName] = useState("");
   const [describe, setDescribe] = useState("");
 
   useEffect(() => {
-    if (name && describe) {
-      setFormData({
-        name: name,
-        describe: describe,
-      });
-    }
-  }, [name, describe]);
+    onChange({ name, describe });
+  }, [name, describe, onChange]);
 
   return (
     <div>
@@ -33,6 +29,7 @@ function InformationForm() {
           variant="outlined"
           margin="dense"
           required
+          defaultValue={name}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -41,6 +38,7 @@ function InformationForm() {
           label="Campaign description"
           variant="outlined"
           margin="dense"
+          defaultValue={describe}
           value={describe}
           onChange={(e) => setDescribe(e.target.value)}
         />

@@ -1,9 +1,11 @@
 interface Advertisement {
+  id: number;
   name: string;
   quantity: number;
 }
 
 interface SubCampaign {
+  id: number;
   name: string;
   status: boolean;
   ads: Advertisement[];
