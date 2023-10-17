@@ -35,6 +35,9 @@ function App() {
   const [formData, setFormData] = useState<Campaign>(defaultData);
   const [currentTab, setCurrentTab] = useState(0);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
     setCurrentTab(newValue);
   };
@@ -47,14 +50,40 @@ function App() {
   };
 
   const handleSubCampaignChange = (subCampaignDataList: SubCampaign[]) => {
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData({
+      ...formData,
       subCampaigns: subCampaignDataList,
-    }));
+    });
+  };
+
+  const validateFormData = () => {
+    let hasError = false;
+    if (formData.information.name.trim() === "") {
+      hasError = true;
+    }
+
+    for (const subCampaign of formData.subCampaigns) {
+      if (subCampaign.name.trim() === "") {
+        hasError = true;
+      }
+
+      for (const advertisement of subCampaign.ads) {
+        if (advertisement.name.trim() === "" || advertisement.quantity === 0) {
+          hasError = true;
+        }
+      }
+    }
+
+    setIsError(hasError);
   };
 
   const onSubmit = () => {
-    console.log(formData);
+    validateFormData();
+    setIsOpen(true);
+  };
+
+  const onClosePopup = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -79,6 +108,45 @@ function App() {
       <CustomTabPanel value={currentTab} index={1}>
         <SubCampaignForm onChange={handleSubCampaignChange} />
       </CustomTabPanel>
+      {isOpen && (
+        <Box
+          sx={{
+            position: "absolute",
+            width: "fit-content",
+            textAlign: "center",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            padding: 3,
+            borderRadius: 2,
+            boxShadow:
+              "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
+            backgroundColor: "#2a2a2a",
+            color: "#fff",
+            zIndex: 99,
+          }}
+        >
+          {isError ? (
+            <Typography variant="h6">
+              Please fill in the correct and complete information.
+            </Typography>
+          ) : (
+            <>
+              <Typography variant="h4" sx={{ marginBottom: 2 }}>
+                Submit Successfully!
+              </Typography>
+              <Typography>{JSON.stringify(formData)}</Typography>
+            </>
+          )}
+          <Button
+            variant="contained"
+            onClick={onClosePopup}
+            sx={{ marginTop: 3 }}
+          >
+            Okay
+          </Button>
+        </Box>
+      )}
     </Container>
   );
 }
