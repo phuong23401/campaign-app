@@ -10,11 +10,12 @@ import SubCampaignBox from "../components/SubCampaignBox";
 import { Advertisement, SubCampaign } from "../types/Campaign";
 
 interface SubCampaignFormProps {
+  hasError: boolean;
   onChange: (subCampaignDataList: SubCampaign[]) => void;
 }
 
 function SubCampaignForm(props: SubCampaignFormProps) {
-  const { onChange } = props;
+  const { hasError, onChange } = props;
   const defaultSubCampaign = {
     id: 1,
     name: "Sub Campaign 1",
@@ -161,6 +162,7 @@ function SubCampaignForm(props: SubCampaignFormProps) {
             margin="normal"
             required
             fullWidth
+            error={hasError && name.trim() === ""}
             value={name}
             onChange={(e) => onRename(e.target.value)}
           />
@@ -178,7 +180,11 @@ function SubCampaignForm(props: SubCampaignFormProps) {
           />
         </Box>
       </FormControl>
-      <AdvertisementForm ads={ads} onChange={handleAdvertisementChange} />
+      <AdvertisementForm
+        ads={ads}
+        hasError={hasError}
+        onChange={handleAdvertisementChange}
+      />
     </div>
   );
 }

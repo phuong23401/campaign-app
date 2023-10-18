@@ -5,11 +5,12 @@ import TextField from "@mui/material/TextField";
 import { Information } from "../types/Campaign";
 
 interface InformationProps {
+  hasError: boolean;
   onChange: (informationData: Information) => void;
 }
 
 function InformationForm(props: InformationProps) {
-  const { onChange } = props;
+  const { hasError, onChange } = props;
   const [name, setName] = useState("");
   const [describe, setDescribe] = useState("");
 
@@ -29,6 +30,7 @@ function InformationForm(props: InformationProps) {
           variant="outlined"
           margin="dense"
           required
+          error={hasError && name.trim() === ""}
           defaultValue={name}
           value={name}
           onChange={(e) => setName(e.target.value)}

@@ -103,10 +103,16 @@ function App() {
         </Tabs>
       </Box>
       <CustomTabPanel value={currentTab} index={0}>
-        <InformationForm onChange={handleInformationChange} />
+        <InformationForm
+          hasError={isError}
+          onChange={handleInformationChange}
+        />
       </CustomTabPanel>
       <CustomTabPanel value={currentTab} index={1}>
-        <SubCampaignForm onChange={handleSubCampaignChange} />
+        <SubCampaignForm
+          hasError={isError}
+          onChange={handleSubCampaignChange}
+        />
       </CustomTabPanel>
       {isOpen && (
         <Box

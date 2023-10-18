@@ -15,17 +15,18 @@ import { Advertisement } from "../types/Campaign";
 
 interface AdvertisementProps {
   ads: Advertisement[];
+  hasError: boolean;
   onChange: (advertisementDataList: Advertisement[]) => void;
 }
 
 function AdvertisementForm(props: AdvertisementProps) {
-  const { ads, onChange } = props;
+  const { ads, hasError, onChange } = props;
   const [advertisementList, setAdvertisementList] = useState<Advertisement[]>(
     []
   );
 
-  const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [name, setName] = useState(ads[0].name);
+  const [quantity, setQuantity] = useState(ads[0].quantity);
   const [checkedAll, setCheckedAll] = useState([false]);
 
   useEffect(() => {
@@ -179,6 +180,7 @@ function AdvertisementForm(props: AdvertisementProps) {
                     hiddenLabel
                     required
                     fullWidth
+                    error={hasError && name.trim() === ""}
                     defaultValue={advertisement.name}
                     onChange={(e) => onRename(advertisement.id, e.target.value)}
                   />
@@ -191,6 +193,7 @@ function AdvertisementForm(props: AdvertisementProps) {
                     hiddenLabel
                     required
                     fullWidth
+                    error={hasError && quantity === 0}
                     defaultValue={advertisement.quantity}
                     onChange={(e) =>
                       onEditQuantity(advertisement.id, Number(e.target.value))
