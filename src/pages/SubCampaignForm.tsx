@@ -113,6 +113,7 @@ function SubCampaignForm(props: SubCampaignFormProps) {
       return campaign;
     });
 
+    setSubCampainList(updatedSubCampaignList);
     onChange(updatedSubCampaignList);
   };
 
@@ -134,7 +135,6 @@ function SubCampaignForm(props: SubCampaignFormProps) {
           <SubCampaignBox
             key={campaign.id}
             subCampaign={campaign}
-            ads={ads}
             active={currentCampaign?.id === campaign.id}
             onClick={() => setInfo(campaign)}
           />
