@@ -43,10 +43,10 @@ function App() {
   };
 
   const handleInformationChange = (informationData: Information) => {
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData({
+      ...formData,
       information: informationData,
-    }));
+    });
   };
 
   const handleSubCampaignChange = (subCampaignDataList: SubCampaign[]) => {

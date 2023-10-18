@@ -20,7 +20,7 @@ function SubCampaignForm(props: SubCampaignFormProps) {
     id: 1,
     name: "Sub Campaign 1",
     status: true,
-    ads: [{ id: 1, name: "Advertisement 1", quantity: 0 }],
+    ads: [],
   };
 
   const [subCampaignList, setSubCampainList] = useState<SubCampaign[]>([
@@ -46,7 +46,7 @@ function SubCampaignForm(props: SubCampaignFormProps) {
       id: newId,
       name: newName,
       status: true,
-      ads: [{ id: 1, name: "Advertisement 1", quantity: 0 }],
+      ads: [],
     };
     const newList = [...subCampaignList, newSubCampaign];
 
@@ -134,6 +134,7 @@ function SubCampaignForm(props: SubCampaignFormProps) {
           <SubCampaignBox
             key={campaign.id}
             subCampaign={campaign}
+            ads={ads}
             active={currentCampaign?.id === campaign.id}
             onClick={() => setInfo(campaign)}
           />
@@ -181,7 +182,6 @@ function SubCampaignForm(props: SubCampaignFormProps) {
         </Box>
       </FormControl>
       <AdvertisementForm
-        ads={ads}
         hasError={hasError}
         onChange={handleAdvertisementChange}
       />

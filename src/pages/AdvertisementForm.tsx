@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
@@ -14,26 +14,21 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Advertisement } from "../types/Campaign";
 
 interface AdvertisementProps {
-  ads: Advertisement[];
   hasError: boolean;
   onChange: (advertisementDataList: Advertisement[]) => void;
 }
 
 function AdvertisementForm(props: AdvertisementProps) {
-  const { ads, hasError, onChange } = props;
-  const [advertisementList, setAdvertisementList] = useState<Advertisement[]>(
-    []
-  );
+  const { hasError, onChange } = props;
+  const defaultAdvertisement = { id: 1, name: "Advertisement 1", quantity: 0 };
 
-  const [name, setName] = useState(ads[0].name);
-  const [quantity, setQuantity] = useState(ads[0].quantity);
+  const [advertisementList, setAdvertisementList] = useState<Advertisement[]>([
+    defaultAdvertisement,
+  ]);
+
+  const [name, setName] = useState(defaultAdvertisement.name);
+  const [quantity, setQuantity] = useState(defaultAdvertisement.quantity);
   const [checkedAll, setCheckedAll] = useState([false]);
-
-  useEffect(() => {
-    if (Array.isArray(ads)) {
-      setAdvertisementList(ads);
-    }
-  }, [ads]);
 
   const addNewAdvertisement = () => {
     let newId = advertisementList.length + 1;
